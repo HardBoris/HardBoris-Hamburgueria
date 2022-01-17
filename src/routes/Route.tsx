@@ -11,5 +11,9 @@ export const Route = ({
   component: Component,
   ...rest
 }: Props) => {
-  return <ReactRoute {...rest} />;
+  return (
+    <ReactRoute {...rest}>
+      <Component />
+    </ReactRoute>
+  );
 };
