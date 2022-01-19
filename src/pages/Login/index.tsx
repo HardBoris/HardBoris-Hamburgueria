@@ -1,13 +1,13 @@
-import { Button, Text } from "@chakra-ui/react";
+import { Box, Container, Flex } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
-import { Formulario } from "../../components/Formulario";
-import { Input } from "../../components/Formulario/Input";
 import { useAuth } from "../../contexts/AuthContext";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Header } from "../../components/Header";
+import { Info } from "../../components/Info";
+import { LoginForm } from "./LoginForm";
 
-const signInSchema = yup.object().shape({
+const schema = yup.object().shape({
   email: yup.string().required("Email obrigatório").email("Email inválido"),
   password: yup.string().required("Senha obrigatória"),
 });
@@ -19,42 +19,43 @@ interface txtData {
 
 export const Login = () => {
   const { signIn } = useAuth();
-  const history = useHistory();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<txtData>({
-    resolver: yupResolver(signInSchema),
+    resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: txtData) => {
+  const Enviar = (data: txtData) => {
     signIn(data).then(() => console.log(data));
   };
 
   return (
-    <>
-      <Text>Login</Text>
-      <Formulario onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          type="email"
-          name="email"
+    <Flex
+      flexDirection={["column", "column", "row-reverse", "row-reverse"]}
+      justifyContent={["", "", "center", "center"]}
+      alignItems={["center"]}
+      margin="auto"
+      h="100vh"
+      w={["320px", "320px", "100%", "100%"]}
+    >
+      <Box
+        w={["320px", "320px", "520px", "520px"]}
+        paddingLeft={["0", "0", "10px", "10px"]}
+      >
+        <Header />
+        <Info />
+        <Box h={["10px", "10px", "100px", "100px"]}></Box>
+      </Box>
+      <Box w={["320px", "320px", "520px", "520px"]}>
+        <LoginForm
+          Enviar={handleSubmit(Enviar)}
+          errors={errors}
           register={register}
-          error={errors.email?.message}
-          placeholder="insira seu email"
         />
-        <Input
-          name="password"
-          register={register}
-          error={errors.password?.message}
-          type="password"
-          placeholder="insira sua senha"
-        />
-        <Button type="submit">Enviar</Button>
-      </Formulario>
-      <Button onClick={() => history.push("/home")}>Home</Button>
-      <Button onClick={() => history.push("/signup")}>Cadastro</Button>
-    </>
+      </Box>
+    </Flex>
   );
 };

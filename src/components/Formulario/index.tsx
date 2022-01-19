@@ -1,4 +1,4 @@
-import { Box, Container } from "@chakra-ui/react";
+import { Box, Container, Flex } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
 interface FormularioProps {
@@ -7,7 +7,18 @@ interface FormularioProps {
 }
 
 export const Formulario = ({ children, ...rest }: FormularioProps) => (
-  <Container w="300px" h="200px" as="form" {...rest}>
+  <Flex
+    as="form"
+    w={["300px", "300px", "500px", "500px"]}
+    border="2px solid"
+    borderColor="cinza.0"
+    borderRadius="md"
+    padding="10px"
+    boxSize="max-content"
+    flexDirection="column"
+    margin="auto"
+    {...rest}
+  >
     {children}
-  </Container>
+  </Flex>
 );

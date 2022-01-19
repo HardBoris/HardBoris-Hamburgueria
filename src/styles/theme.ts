@@ -6,16 +6,16 @@ export const theme = extendTheme({
       primary: "#27ae60",
       secondary: "#eb5757",
     },
-    gray: {
+    cinza: {
       0: "#f5f5f5",
       100: "#e0e0e0",
       300: "#828282",
       600: "#333333",
     },
-    feedback: {
+    status: {
       negative: "#e60000",
       warning: "#ffcd07",
-      sucess: "#168821",
+      success: "#168821",
       information: "#155bcb",
     },
   },
