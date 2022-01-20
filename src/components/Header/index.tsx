@@ -1,12 +1,21 @@
 import { Flex, Heading } from "@chakra-ui/react";
 
-export const Header = () => {
+interface HeaderProps {
+  oculto?: boolean;
+}
+
+export const Header = ({ oculto }: HeaderProps) => {
   return (
     <Flex
       as="header"
       h={["12vh"]}
-      w={["300px", "300px", "300px", "400px"]}
-      margin="auto"
+      w={["200px", "200px", "300px", "400px"]}
+      // margin="auto"
+      display={[
+        `${oculto ? "flex" : "none"}`,
+        `${oculto ? "flex" : "none"}`,
+        "flex",
+      ]}
     >
       <Flex
         w="100%"
@@ -17,16 +26,16 @@ export const Header = () => {
         <Heading
           as="h1"
           textAlign="right"
-          paddingRight="7px"
+          paddingRight="5px"
           color="cinza.600"
-          fontSize={["32px", "32px", "36px", "48px"]}
+          fontSize={["24px", "24px", "28px", "36px"]}
         >
           Burguer
         </Heading>
         <Heading
           textAlign="left"
-          paddingLeft="7px"
-          fontSize={["18px", "18px", "20px", "26px"]}
+          paddingLeft="5px"
+          fontSize={["12px", "12px", "14px", "18px"]}
           color="main.secondary"
         >
           Kenzie
