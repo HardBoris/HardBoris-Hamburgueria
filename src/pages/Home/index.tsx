@@ -36,9 +36,16 @@ export const Home = () => {
         <Flex
           // justifyContent="space-between"
           alignItems="center"
+          display={[
+            `${oculto ? "flex" : "none"}`,
+            `${oculto ? "flex" : "none"}`,
+            "flex",
+            "flex",
+          ]}
           // display={oculto ? "flex" : "none"}
         >
-          <Header oculto={oculto} />
+          {/* <Header oculto={oculto} /> */}
+          <Header />
         </Flex>
         <Flex justifyContent="center" alignItems="center">
           <Flex

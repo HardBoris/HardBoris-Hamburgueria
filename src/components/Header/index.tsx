@@ -1,22 +1,8 @@
 import { Flex, Heading } from "@chakra-ui/react";
 
-interface HeaderProps {
-  oculto?: boolean;
-}
-
-export const Header = ({ oculto }: HeaderProps) => {
+export const Header = () => {
   return (
-    <Flex
-      as="header"
-      h={["12vh"]}
-      w={["200px", "200px", "300px", "400px"]}
-      // margin="auto"
-      display={[
-        `${oculto ? "flex" : "none"}`,
-        `${oculto ? "flex" : "none"}`,
-        "flex",
-      ]}
-    >
+    <Flex as="header" h={["12vh"]} w={["200px", "200px", "300px", "400px"]}>
       <Flex
         w="100%"
         justifyContent="flex-start"
