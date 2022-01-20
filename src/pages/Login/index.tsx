@@ -1,11 +1,11 @@
-import { Box, Container, Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../contexts/AuthContext";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Header } from "../../components/Header";
-import { Info } from "../../components/Info";
 import { LoginForm } from "./LoginForm";
+import { Eslogan } from "../../components/Header/Eslogan";
 
 const schema = yup.object().shape({
   email: yup.string().required("Email obrigatório").email("Email inválido"),
@@ -41,15 +41,12 @@ export const Login = () => {
       h="100vh"
       w={["320px", "320px", "100%", "100%"]}
     >
-      <Box
-        w={["320px", "320px", "520px", "520px"]}
-        paddingLeft={["0", "0", "10px", "10px"]}
-      >
+      <Box paddingLeft={["0", "0", "40px", "80px"]}>
         <Header />
-        <Info />
+        <Eslogan />
         <Box h={["10px", "10px", "100px", "100px"]}></Box>
       </Box>
-      <Box w={["320px", "320px", "520px", "520px"]}>
+      <Box w={["320px", "320px", "320px", "520px"]}>
         <LoginForm
           Enviar={handleSubmit(Enviar)}
           errors={errors}

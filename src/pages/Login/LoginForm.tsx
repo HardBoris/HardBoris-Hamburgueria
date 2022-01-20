@@ -20,15 +20,15 @@ export const LoginForm = ({ Enviar, errors, register }: LoginFormProps) => {
           type="email"
           name="email"
           error={errors.email}
-          placeholder="insira seu email"
-          register={register}
+          placeholder={!errors.email ? "Email" : errors.email.message}
+          {...register("email")}
         />
         <Input
           name="password"
-          register={register}
+          {...register("password")}
           error={errors.password}
           type="password"
-          placeholder="insira sua senha"
+          placeholder={!errors.email ? "Senha" : errors.password.message}
         />
       </VStack>
       <VStack mt="4" spacing="5">
@@ -38,6 +38,7 @@ export const LoginForm = ({ Enviar, errors, register }: LoginFormProps) => {
           w="100%"
           h="60px"
           color="cinza.0"
+          _hover={{ bg: "shadow.verde", color: "cinza.0" }}
         >
           Entrar
         </Button>
@@ -50,6 +51,7 @@ export const LoginForm = ({ Enviar, errors, register }: LoginFormProps) => {
           w="100%"
           h="60px"
           color="cinza.300"
+          _hover={{ bg: "cinza.300", color: "cinza.0" }}
           onClick={() => history.push("/signup")}
         >
           Cadastrar

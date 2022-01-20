@@ -20,7 +20,6 @@ import { IconType } from "react-icons";
 
 interface EntradaProps extends InputProps {
   name: string;
-  register: any;
   label?: string;
   error?: FieldError | null;
   iconLeft?: IconType;
@@ -39,15 +38,7 @@ const statusColor: statusOptions = {
 };
 
 const Entrada: ForwardRefRenderFunction<HTMLInputElement, EntradaProps> = (
-  {
-    name,
-    register,
-    label,
-    error = null,
-    iconLeft: Licon,
-    iconRight: Ricon,
-    ...rest
-  },
+  { name, label, error = null, iconLeft: Licon, iconRight: Ricon, ...rest },
   ref
 ) => {
   const [value, setValue] = useState("");
@@ -83,20 +74,20 @@ const Entrada: ForwardRefRenderFunction<HTMLInputElement, EntradaProps> = (
           )}
           <ChakraInput
             name={name}
+            label={label}
             onChangeCapture={(event) => setValue(event.currentTarget.value)}
             onFocus={handleInputFocus}
             onBlurCapture={handleInputBlur}
             borderColor={statusColor[status]}
             color={statusColor[status]}
             bg="cinza.0"
-            variant="outline"
+            variant="filled"
             size="lg"
             h="60px"
             _hover={{ bgColor: "cinza.100" }}
             _placeholder={{ color: "cinza.300" }}
-            _focus={{ bg: "cinza.100" }}
+            _focus={{ bg: "cinza.100", border: "1px solid cinza.600" }}
             ref={ref}
-            {...register(name)}
             {...rest}
           />
           {Ricon && (
@@ -104,7 +95,7 @@ const Entrada: ForwardRefRenderFunction<HTMLInputElement, EntradaProps> = (
               <Ricon />
             </InputRightElement>
           )}
-          {!!error && <FormErrorMessage>{error.message}</FormErrorMessage>}
+          {!!error && <FormErrorMessage></FormErrorMessage>}
         </InputGroup>
       </FormControl>
     </>

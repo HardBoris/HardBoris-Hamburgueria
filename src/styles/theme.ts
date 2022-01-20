@@ -18,6 +18,9 @@ export const theme = extendTheme({
       success: "#168821",
       information: "#155bcb",
     },
+    shadow: {
+      verde: "rgba(39, 174, 96, 0.6 )",
+    },
   },
   fonts: {
     heading: "Inter",

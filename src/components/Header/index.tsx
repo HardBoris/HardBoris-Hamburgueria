@@ -2,20 +2,31 @@ import { Flex, Heading } from "@chakra-ui/react";
 
 export const Header = () => {
   return (
-    <Flex as="header" h={["12vh"]} w="300px" margin="auto">
+    <Flex
+      as="header"
+      h={["12vh"]}
+      w={["300px", "300px", "300px", "400px"]}
+      margin="auto"
+    >
       <Flex
-        w={["300px", "300px", "500px", "500px"]}
+        w="100%"
         justifyContent="flex-start"
         alignItems="baseline"
         margin="auto"
       >
-        <Heading as="h1" textAlign="right" paddingRight="7px" color="cinza.600">
+        <Heading
+          as="h1"
+          textAlign="right"
+          paddingRight="7px"
+          color="cinza.600"
+          fontSize={["32px", "32px", "36px", "48px"]}
+        >
           Burguer
         </Heading>
         <Heading
           textAlign="left"
           paddingLeft="7px"
-          size="md"
+          fontSize={["18px", "18px", "20px", "26px"]}
           color="main.secondary"
         >
           Kenzie
