@@ -1,15 +1,14 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { FaCartPlus, FaSearch, FaSignOutAlt } from "react-icons/fa";
-import { Search } from "./Search";
 
 interface IconesProps {
   salir: () => void;
   mostrar: () => void;
-  adicionar: () => void;
+  incognita: () => void;
   oculto?: boolean;
 }
 
-export const Icones = ({ salir, adicionar, mostrar, oculto }: IconesProps) => {
+export const Icones = ({ salir, incognita, mostrar, oculto }: IconesProps) => {
   return (
     <Flex
       id="icones"
@@ -37,7 +36,7 @@ export const Icones = ({ salir, adicionar, mostrar, oculto }: IconesProps) => {
         as="button"
         cursor="pointer"
         fontSize={["20px", "20px", "25px", "30px"]}
-        onClick={adicionar}
+        onClick={incognita}
       >
         <FaCartPlus />
       </Box>
