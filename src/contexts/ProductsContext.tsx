@@ -12,7 +12,7 @@ interface ProductsProviderProps {
 }
 
 interface Products {
-  id: string;
+  id: number;
   name: string;
   category: string;
   price: number;
@@ -32,15 +32,15 @@ const useProducts = () => useContext(ProductContext);
 const ProductsProvider = ({ children }: ProductsProviderProps) => {
   const [produtos, setProdutos] = useState<Products[]>([]);
 
-  const getProdutos = () => {
-    api.get("/products").then((response) => setProdutos(response.data));
+  const getProdutos = async () => {
+    await api
+      .get("/products")
+      .then((response) => setProdutos([...response.data]));
   };
 
   useEffect(() => {
     getProdutos();
   }, []);
-
-  console.log(produtos);
 
   return (
     <ProductContext.Provider value={{ produtos, getProdutos }}>

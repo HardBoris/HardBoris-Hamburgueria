@@ -1,13 +1,16 @@
 import { Button, Flex, Image, Text } from "@chakra-ui/react";
+import { useCart } from "../../contexts/CartContext";
 
 interface ProductProps {
+  id: number;
   name: string;
   category: string;
   price: number;
   img: string;
 }
 
-export const Product = ({ name, category, price, img }: ProductProps) => {
+export const Product = ({ id, name, category, price, img }: ProductProps) => {
+  const { SaleAdd } = useCart();
   return (
     <Flex
       w="300px"
@@ -40,7 +43,7 @@ export const Product = ({ name, category, price, img }: ProductProps) => {
           h="40px"
           color="cinza.0"
           _hover={{ bg: "shadow.verde", color: "cinza.0" }}
-          onClick={() => {}}
+          onClick={() => SaleAdd(id)}
         >
           Adicionar
         </Button>

@@ -5,8 +5,8 @@ import { Product } from "./Product";
 export const ProductsList = () => {
   const { produtos } = useProducts();
   return (
-    <Flex w={["320px", "320px", "660px", "1400px"]} margin="auto">
-      <List margin="auto">
+    <Flex>
+      <List>
         <Stack
           flexDirection="row"
           flexWrap="wrap"
@@ -16,6 +16,7 @@ export const ProductsList = () => {
           {produtos.map((item) => (
             <ListItem key={item.id} margin="0">
               <Product
+                id={item.id}
                 name={item.name}
                 category={item.category}
                 price={item.price}

@@ -18,8 +18,6 @@ export const Home = () => {
     setOculto(false);
   };
 
-  console.log(oculto);
-
   return (
     <>
       <Encabezado
