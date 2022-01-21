@@ -7,7 +7,7 @@ interface EncabezadoProps {
   salir: () => void;
   ocultar: () => void;
   mostrar: () => void;
-  incognita: () => void;
+  abrir: () => void;
   oculto?: boolean;
 }
 
@@ -15,7 +15,7 @@ export const Encabezado = ({
   salir,
   ocultar,
   mostrar,
-  incognita,
+  abrir,
   oculto,
 }: EncabezadoProps) => {
   return (
@@ -60,7 +60,7 @@ export const Encabezado = ({
             <Icones
               salir={salir}
               mostrar={mostrar}
-              incognita={incognita}
+              abrir={abrir}
               oculto={oculto}
             />
           </Flex>

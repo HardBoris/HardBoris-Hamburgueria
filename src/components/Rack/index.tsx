@@ -1,15 +1,33 @@
-import { Button, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { useProducts } from "../../contexts/ProductsContext";
+import { EmptyCart } from "../Modal/EmptyCart";
+import { FullCart } from "../Modal/FullCart";
 import { ProductsList } from "./ProductsList";
 
-export const Rack = () => {
+interface RackProps {
+  isOpen: boolean;
+  onClose: () => void;
+  cancela: () => void;
+  fullOpen: boolean;
+  fullClose: () => void;
+}
+
+export const Rack = ({
+  isOpen,
+  onClose,
+  cancela,
+  fullOpen,
+  fullClose,
+}: RackProps) => {
   const { getProdutos } = useProducts();
-  const handleProduto = () => {
-    return getProdutos();
-  };
+
   return (
-    <Flex w={["320px", "320px", "660px", "1300px"]} margin="auto">
-      <ProductsList />
-    </Flex>
+    <>
+      <EmptyCart isOpen={isOpen} onClose={onClose} />
+      <FullCart isOpen={fullOpen} onClose={fullClose} cancela={cancela} />
+      <Flex w={["320px", "320px", "660px", "1300px"]} margin="auto">
+        <ProductsList inicio={() => getProdutos()} />
+      </Flex>
+    </>
   );
 };

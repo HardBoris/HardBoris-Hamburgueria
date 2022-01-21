@@ -2,10 +2,14 @@ import { Flex, List, ListItem, Stack } from "@chakra-ui/react";
 import { useProducts } from "../../contexts/ProductsContext";
 import { Product } from "./Product";
 
-export const ProductsList = () => {
+interface ProductsListProps {
+  inicio: () => void;
+}
+
+export const ProductsList = ({ inicio }: ProductsListProps) => {
   const { produtos } = useProducts();
   return (
-    <Flex>
+    <Flex inicio={inicio}>
       <List>
         <Stack
           flexDirection="row"

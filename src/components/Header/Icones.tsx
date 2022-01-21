@@ -4,11 +4,11 @@ import { FaCartPlus, FaSearch, FaSignOutAlt } from "react-icons/fa";
 interface IconesProps {
   salir: () => void;
   mostrar: () => void;
-  incognita: () => void;
+  abrir: () => void;
   oculto?: boolean;
 }
 
-export const Icones = ({ salir, incognita, mostrar, oculto }: IconesProps) => {
+export const Icones = ({ salir, abrir, mostrar, oculto }: IconesProps) => {
   return (
     <Flex
       id="icones"
@@ -36,7 +36,7 @@ export const Icones = ({ salir, incognita, mostrar, oculto }: IconesProps) => {
         as="button"
         cursor="pointer"
         fontSize={["20px", "20px", "25px", "30px"]}
-        onClick={incognita}
+        onClick={abrir}
       >
         <FaCartPlus />
       </Box>

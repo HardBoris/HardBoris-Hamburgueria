@@ -20,6 +20,7 @@ interface Products {
 }
 interface CartContextData {
   sale: Products[];
+  qty: number;
   SaleQty: () => void;
   SaleAdd: (id: number) => void;
   SaleDel: (id: number) => void;
@@ -62,7 +63,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
 
   return (
     <CartContext.Provider
-      value={{ sale, SaleQty, SaleAdd, SaleDel, SaleCancel }}
+      value={{ sale, qty, SaleQty, SaleAdd, SaleDel, SaleCancel }}
     >
       {children}
     </CartContext.Provider>
