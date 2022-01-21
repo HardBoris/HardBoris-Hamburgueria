@@ -30,7 +30,9 @@ export const Product = ({ name, category, price, img }: ProductProps) => {
       >
         <Text>{name}</Text>
         <Text>{category}</Text>
-        <Text>R$ {price.toFixed(2)}</Text>
+        <Text fontWeight="bold" color="main.primary">
+          R$ {price.toFixed(2)}
+        </Text>
         <Button
           type="button"
           bg="main.primary"

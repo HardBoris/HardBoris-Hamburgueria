@@ -8,7 +8,7 @@ export const Rack = () => {
     return getProdutos();
   };
   return (
-    <Flex>
+    <Flex w={["320px", "320px", "660px", "1300px"]} margin="auto">
       <ProductsList />
     </Flex>
   );

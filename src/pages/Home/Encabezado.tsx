@@ -19,7 +19,12 @@ export const Encabezado = ({
   oculto,
 }: EncabezadoProps) => {
   return (
-    <Flex bg="cinza.0" h={["12vh", "12vh", "10vh", "8vh"]}>
+    <Flex
+      bg="cinza.0"
+      h={["12vh", "12vh", "10vh", "8vh"]}
+      w={["320px", "320px", "100%", "1300px"]}
+      margin="auto"
+    >
       <Flex
         paddingLeft={["10px", "10px", "20px", "20px"]}
         flexDirection="row"
