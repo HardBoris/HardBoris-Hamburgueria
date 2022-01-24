@@ -2,23 +2,25 @@ import { Flex, List, ListItem, Stack } from "@chakra-ui/react";
 import { useProducts } from "../../contexts/ProductsContext";
 import { Product } from "./Product";
 
-interface ProductsListProps {
-  inicio: () => void;
-}
-
-export const ProductsList = ({ inicio }: ProductsListProps) => {
+export const ProductsList = () => {
   const { produtos } = useProducts();
   return (
-    <Flex inicio={inicio}>
+    <Flex id="product-list">
       <List>
-        <Stack
-          flexDirection="row"
-          flexWrap="wrap"
-          direction={["column", "row"]}
-          justifyContent="space-evenly"
+        <Flex
+          w={["320px", "320px", "700px", "1300px"]}
+          overflow={["scroll", "scroll", "scroll", "initial"]}
+          margin="auto"
+          flexWrap={["nowrap", "nowrap", "nowrap", "wrap"]}
+          justifyContent={[
+            "flex-start",
+            "flex-start",
+            "flex-start",
+            "space-around",
+          ]}
         >
           {produtos.map((item) => (
-            <ListItem key={item.id} margin="0">
+            <ListItem key={item.id} marginLeft="10px">
               <Product
                 id={item.id}
                 name={item.name}
@@ -28,7 +30,7 @@ export const ProductsList = ({ inicio }: ProductsListProps) => {
               />
             </ListItem>
           ))}
-        </Stack>
+        </Flex>
       </List>
     </Flex>
   );

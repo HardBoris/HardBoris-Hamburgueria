@@ -1,7 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import { theme } from "../styles/theme";
-import { AuthProvider } from "./AuthContext";
+import { UserProvider } from "./UserContext";
 import { CartProvider } from "./CartContext";
 import { ProductsProvider } from "./ProductsContext";
 
@@ -10,7 +10,7 @@ interface AppProviderProps {
 }
 
 export const AppProvider = ({ children }: AppProviderProps) => (
-  <AuthProvider>
+  <UserProvider>
     <ProductsProvider>
       <CartProvider>
         <ChakraProvider resetCSS theme={theme}>
@@ -18,5 +18,5 @@ export const AppProvider = ({ children }: AppProviderProps) => (
         </ChakraProvider>
       </CartProvider>
     </ProductsProvider>
-  </AuthProvider>
+  </UserProvider>
 );

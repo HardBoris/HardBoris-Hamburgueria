@@ -8,7 +8,7 @@ import {
 
 import { api } from "../services/api";
 
-interface AuthProviderProps {
+interface UserProviderProps {
   children: ReactNode;
 }
 
@@ -28,17 +28,17 @@ interface SignInCredentials {
   password: string;
 }
 
-interface AuthContextData {
+interface UserContextData {
   user: User;
   accessToken: string;
   signIn: (credentials: SignInCredentials) => Promise<void>;
   signOut: () => void;
 }
 
-const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+const UserContext = createContext<UserContextData>({} as UserContextData);
 
 const useAuth = () => {
-  const context = useContext(AuthContext);
+  const context = useContext(UserContext);
 
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
@@ -47,7 +47,7 @@ const useAuth = () => {
   return context;
 };
 
-const AuthProvider = ({ children }: AuthProviderProps) => {
+const UserProvider = ({ children }: UserProviderProps) => {
   const [data, setData] = useState<AuthState>(() => {
     const accessToken = localStorage.getItem("@Doit:accessToken");
     const user = localStorage.getItem("@Doit:user");
@@ -60,14 +60,19 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   });
 
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
-    const response = await api.post("/login", { email, password });
+    await api
+      .post("/login", { email, password })
+      .then((response) => {
+        const { accessToken, user } = response.data;
 
-    const { accessToken, user } = response.data;
+        localStorage.setItem("@Doit:accessToken", accessToken);
+        localStorage.setItem("@Doit:user", JSON.stringify(user));
 
-    localStorage.setItem("@Doit:accessToken", accessToken);
-    localStorage.setItem("@Doit:user", JSON.stringify(user));
-
-    setData({ accessToken, user });
+        setData({ accessToken, user });
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
   }, []);
 
   const signOut = useCallback(() => {
@@ -78,7 +83,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   return (
-    <AuthContext.Provider
+    <UserContext.Provider
       value={{
         accessToken: data.accessToken,
         user: data.user,
@@ -87,8 +92,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </UserContext.Provider>
   );
 };
 
-export { AuthProvider, useAuth };
+export { UserProvider, useAuth };

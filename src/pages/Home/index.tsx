@@ -1,16 +1,13 @@
-import { Box, Flex, useDisclosure } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
-import { Header } from "../../components/Header";
-import { Icones } from "../../components/Header/Icones";
-import { Search } from "../../components/Header/Search";
 import { Rack } from "../../components/Rack";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/UserContext";
 import { useCart } from "../../contexts/CartContext";
 import { Encabezado } from "./Encabezado";
 
 export const Home = () => {
   const { signOut } = useAuth();
-  const { qty, SaleCancel } = useCart();
+  const { long, SaleCancel } = useCart();
   const [oculto, setOculto] = useState(true);
   const Ocultar = () => {
     setOculto(true);
@@ -33,10 +30,10 @@ export const Home = () => {
   } = useDisclosure();
 
   const Abrir = () => {
-    if (qty === 0) {
+    if (long === 0) {
       onEmptyCartOpen();
     }
-    if (qty > 0) {
+    if (long > 0) {
       onFullCartOpen();
     }
   };
@@ -44,6 +41,7 @@ export const Home = () => {
   const handleSale = () => {
     SaleCancel();
     onFullCartClose();
+    onEmptyCartOpen();
   };
 
   return (
@@ -61,6 +59,7 @@ export const Home = () => {
         fullClose={onFullCartClose}
         fullOpen={isFullCartOpen}
         cancela={() => handleSale()}
+        factor={2}
       />
     </>
   );

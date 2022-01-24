@@ -16,7 +16,7 @@ export const EmptyCart = ({ isOpen, onClose }: EmptyCartProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent h="210px">
+      <ModalContent h="210px" w={["250px", "250px", "500px", "500px"]}>
         <ModalHeader
           display="flex"
           justifyContent="space-between"
@@ -27,7 +27,7 @@ export const EmptyCart = ({ isOpen, onClose }: EmptyCartProps) => {
           borderTopRadius="lg"
         >
           <Text>Carrinho de Compras</Text>
-          <Text as="button" onClick={onClose}>
+          <Text as="button" onClick={onClose} fontWeight="bold">
             X
           </Text>
         </ModalHeader>

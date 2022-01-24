@@ -23,8 +23,8 @@ export const theme = extendTheme({
     },
   },
   fonts: {
-    heading: "Inter",
-    body: "Inter",
+    heading: "Inter, sans-serif",
+    body: "Inter, sans-serif",
   },
   fontSizes: {
     xs: "0.75rem",
@@ -45,7 +45,7 @@ export const theme = extendTheme({
     global: {
       body: {
         bg: "white",
-        color: "gray.600",
+        color: "cinza.600",
       },
     },
   },

@@ -1,5 +1,4 @@
 import { Flex } from "@chakra-ui/react";
-import { useProducts } from "../../contexts/ProductsContext";
 import { EmptyCart } from "../Modal/EmptyCart";
 import { FullCart } from "../Modal/FullCart";
 import { ProductsList } from "./ProductsList";
@@ -10,6 +9,7 @@ interface RackProps {
   cancela: () => void;
   fullOpen: boolean;
   fullClose: () => void;
+  factor: number;
 }
 
 export const Rack = ({
@@ -18,15 +18,19 @@ export const Rack = ({
   cancela,
   fullOpen,
   fullClose,
+  factor,
 }: RackProps) => {
-  const { getProdutos } = useProducts();
-
   return (
     <>
       <EmptyCart isOpen={isOpen} onClose={onClose} />
-      <FullCart isOpen={fullOpen} onClose={fullClose} cancela={cancela} />
-      <Flex w={["320px", "320px", "660px", "1300px"]} margin="auto">
-        <ProductsList inicio={() => getProdutos()} />
+      <FullCart
+        isOpen={fullOpen}
+        onClose={fullClose}
+        cancela={cancela}
+        factor={factor}
+      />
+      <Flex id="rack" w={["320px", "320px", "700px", "1300px"]} margin="auto">
+        <ProductsList />
       </Flex>
     </>
   );

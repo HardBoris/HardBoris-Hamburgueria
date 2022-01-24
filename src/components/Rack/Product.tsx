@@ -21,8 +21,8 @@ export const Product = ({ id, name, category, price, img }: ProductProps) => {
       borderRadius="lg"
       marginTop="25px"
     >
-      <Flex h="40%" justifyContent="center" alignItems="center" bg="cinza.0">
-        <Image src={img} />
+      <Flex h="40%" justifyContent="center" bg="cinza.0">
+        <Image src={img} objectFit="contain" />
       </Flex>
       <Flex
         h="60%"
@@ -31,7 +31,7 @@ export const Product = ({ id, name, category, price, img }: ProductProps) => {
         alignItems="flex-start"
         padding="20px"
       >
-        <Text>{name}</Text>
+        <Text fontWeight="bold">{name}</Text>
         <Text>{category}</Text>
         <Text fontWeight="bold" color="main.primary">
           R$ {price.toFixed(2)}

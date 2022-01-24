@@ -1,6 +1,6 @@
 import { ComponentType } from "react";
 import { RouteProps, Route as ReactRoute, Redirect } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../contexts/UserContext";
 
 interface Props extends RouteProps {
   isPrivate?: boolean;
