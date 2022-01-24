@@ -20,6 +20,11 @@ export const Product = ({ id, name, category, price, img }: ProductProps) => {
       borderColor="cinza.100"
       borderRadius="lg"
       marginTop="25px"
+      transition="1000ms"
+      _hover={{
+        border: "3px solid",
+        borderColor: "main.primary",
+      }}
     >
       <Flex h="40%" justifyContent="center" bg="cinza.0">
         <Image src={img} objectFit="contain" />

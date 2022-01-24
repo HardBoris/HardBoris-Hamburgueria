@@ -7,32 +7,27 @@ interface CartProductProps {
   id: number;
   name: string;
   price: number;
-  qty: number;
   img: string;
 }
 
-export const CartProduct = ({
-  id,
-  name,
-  price,
-  qty,
-  img,
-}: CartProductProps) => {
-  const { SaleDel } = useCart();
-  const [productQty, setProductQty] = useState(1);
+export const CartProduct = ({ id, name, price, img }: CartProductProps) => {
+  const { SaleDel, multiplicacion } = useCart();
+  const [qty, setQty] = useState(1);
 
   const Aumenta = () => {
-    setProductQty(productQty + 1);
+    setQty(qty + 1);
   };
 
   const Disminuye = () => {
-    if (productQty > 1) {
-      setProductQty(productQty - 1);
+    if (qty > 1) {
+      setQty(qty - 1);
     }
   };
 
+  console.log(multiplicacion(price, qty)); //está función es provisionale viene del CartContext
+
   return (
-    <Flex w="100%" h="80px" alignItems="center" marginTop="20px" qty={qty}>
+    <Flex w="100%" h="80px" alignItems="center" marginTop="20px">
       <Flex h="80px" w="80px" justifyContent="center" bg="cinza.0">
         <Image src={img} objectFit="contain" />
       </Flex>
@@ -60,7 +55,9 @@ export const CartProduct = ({
             color="main.secondary"
             textAlign="center"
             bg="cinza.0"
-            onClick={() => Disminuye()}
+            onClick={() => {
+              Disminuye();
+            }}
           >
             -
           </Text>
@@ -71,7 +68,7 @@ export const CartProduct = ({
             border="2px solid"
             borderColor="cinza.0"
           >
-            {productQty}
+            {qty}
           </Text>
           <Text
             as="button"
@@ -81,7 +78,9 @@ export const CartProduct = ({
             color="main.secondary"
             textAlign="center"
             bg="cinza.0"
-            onClick={() => Aumenta()}
+            onClick={() => {
+              Aumenta();
+            }}
           >
             +
           </Text>

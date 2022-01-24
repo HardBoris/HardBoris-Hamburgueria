@@ -27,9 +27,14 @@ interface Ventas {
   img: string;
 }
 
+interface Valor {
+  prod: number;
+}
+
 interface CartContextData {
   sale: Sales[];
   venta: Ventas[];
+  valor: Valor[];
   long: number;
   qty: number;
   SaleQty: () => void;
@@ -37,6 +42,9 @@ interface CartContextData {
   SaleDel: (id: number) => void;
   SaleCancel: () => void;
   SaleSum: number;
+  multiplicacion: (x: number, y: number) => void;
+  Aumenta: () => void;
+  Disminuye: () => void;
 }
 
 export const CartContext = createContext<CartContextData>(
@@ -51,6 +59,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
   const [long, setLong] = useState<number>(0);
   const [qty, setQty] = useState(1);
   const [venta, setVenta] = useState<Ventas[]>([]);
+  const [valor, setValor] = useState<Valor[]>([]);
 
   const SaleQty = () => {
     setLong(venta.length);
@@ -59,10 +68,8 @@ const CartProvider = ({ children }: CartProviderProps) => {
   const SaleAdd = (id: number) => {
     const saleProduct = produtos.find((item) => item.id === id);
     if (saleProduct) {
-      setVenta([...venta, { ...saleProduct, qty }]);
+      setSale([...sale, saleProduct]);
     }
-
-    SaleQty();
   };
 
   useEffect(() => {
@@ -70,23 +77,37 @@ const CartProvider = ({ children }: CartProviderProps) => {
   }, [qty]);
 
   const SaleDel = (id: number) => {
-    setVenta(venta.filter((item) => item.id !== id));
+    setSale(sale.filter((item) => item.id !== id));
     SaleQty();
   };
 
-  const SaleSum = venta.reduce((a, b) => a + b.price, 0);
+  const SaleSum = sale.reduce((a, b) => a + b.price, 0);
 
-  const SaleCancel = () => setVenta([]);
+  const SaleCancel = () => setSale([]);
 
-  const prueba = () => {};
+  const multiplicacion = (x: number, y: number) => {
+    return x * y;
+    // setValor([...valor, { prod }]);
+  };
 
   useEffect(() => {
-    setLong(venta.length);
-  }, [venta]);
+    setLong(sale.length);
+  }, [sale]);
 
-  console.log(venta);
+  const Aumenta = () => {
+    setQty(qty + 1);
+  };
+
+  const Disminuye = () => {
+    if (qty > 1) {
+      setQty(qty - 1);
+    }
+  };
+
+  console.log(sale);
   console.log(long);
   console.log(qty);
+  console.log(valor);
 
   return (
     <CartContext.Provider
@@ -94,12 +115,16 @@ const CartProvider = ({ children }: CartProviderProps) => {
         sale,
         venta,
         long,
+        valor,
         qty,
         SaleQty,
         SaleAdd,
         SaleDel,
         SaleCancel,
         SaleSum,
+        multiplicacion,
+        Aumenta,
+        Disminuye,
       }}
     >
       {children}

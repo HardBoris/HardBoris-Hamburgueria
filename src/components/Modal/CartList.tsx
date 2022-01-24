@@ -2,12 +2,8 @@ import { Flex, List, ListItem, Stack } from "@chakra-ui/react";
 import { useCart } from "../../contexts/CartContext";
 import { CartProduct } from "./CartProduct";
 
-interface CartListProps {
-  factor: number;
-}
-
-export const CartList = ({ factor }: CartListProps) => {
-  const { venta } = useCart();
+export const CartList = () => {
+  const { sale } = useCart();
 
   return (
     <Flex w="100%">
@@ -19,13 +15,12 @@ export const CartList = ({ factor }: CartListProps) => {
           justifyContent="space-evenly"
           w="100%"
         >
-          {venta.map((item) => (
+          {sale.map((item) => (
             <ListItem key={item.id} w="100%">
               <CartProduct
                 id={item.id}
                 name={item.name}
                 price={item.price}
-                qty={factor}
                 img={item.img}
               />
             </ListItem>

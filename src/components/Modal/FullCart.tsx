@@ -25,7 +25,7 @@ export const FullCart = ({
   cancela,
   factor,
 }: FullCartProps) => {
-  const { SaleSum } = useCart();
+  const { SaleSum, qty } = useCart();
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -52,7 +52,7 @@ export const FullCart = ({
           justifyContent="center"
           alignItems="center"
         >
-          <CartList factor={factor} />
+          <CartList />
         </ModalBody>
         <ModalFooter
           h="150px"
