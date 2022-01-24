@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Flex,
   Input,
@@ -8,13 +7,14 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { Formulario } from "../Formulario";
+import { useProducts } from "../../contexts/ProductsContext";
 
 interface SearchProps {
   ocultar: () => void;
 }
 
 export const Search = ({ ocultar }: SearchProps) => {
+  const { Filtrados } = useProducts();
   const [busca, setBusca] = useState("");
 
   return (
@@ -41,7 +41,7 @@ export const Search = ({ ocultar }: SearchProps) => {
             _hover={{ bg: "shadow.verde", color: "cinza.0" }}
             onClick={() => {
               ocultar();
-              console.log(busca);
+              Filtrados(busca);
             }}
           >
             <FaSearch />

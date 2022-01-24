@@ -20,7 +20,9 @@ interface Products {
 }
 interface ProductContextData {
   produtos: Products[];
+  filteredProducts: Products[];
   getProdutos: () => void;
+  Filtrados: (opcion: string) => void;
 }
 
 export const ProductContext = createContext<ProductContextData>(
@@ -42,8 +44,21 @@ const ProductsProvider = ({ children }: ProductsProviderProps) => {
     getProdutos();
   }, []);
 
+  const [filteredProducts, setFilteredProducts] = useState<Products[]>([]);
+
+  const Filtrados = (opcion: string) => {
+    const Filtro = produtos.filter(
+      (item) =>
+        item.category.toLowerCase() === opcion.toLowerCase() ||
+        item.name.toLowerCase() === opcion.toLowerCase()
+    );
+    setFilteredProducts(Filtro);
+  };
+
   return (
-    <ProductContext.Provider value={{ produtos, getProdutos }}>
+    <ProductContext.Provider
+      value={{ produtos, getProdutos, Filtrados, filteredProducts }}
+    >
       {children}
     </ProductContext.Provider>
   );

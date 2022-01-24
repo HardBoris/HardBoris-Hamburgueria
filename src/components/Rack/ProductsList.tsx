@@ -3,7 +3,8 @@ import { useProducts } from "../../contexts/ProductsContext";
 import { Product } from "./Product";
 
 export const ProductsList = () => {
-  const { produtos } = useProducts();
+  const { produtos, filteredProducts } = useProducts();
+
   return (
     <Flex id="product-list">
       <List>
@@ -19,17 +20,29 @@ export const ProductsList = () => {
             "space-around",
           ]}
         >
-          {produtos.map((item) => (
-            <ListItem key={item.id} marginLeft="10px">
-              <Product
-                id={item.id}
-                name={item.name}
-                category={item.category}
-                price={item.price}
-                img={item.img}
-              />
-            </ListItem>
-          ))}
+          {filteredProducts.length === 0
+            ? produtos.map((item) => (
+                <ListItem key={item.id} marginLeft="10px">
+                  <Product
+                    id={item.id}
+                    name={item.name}
+                    category={item.category}
+                    price={item.price}
+                    img={item.img}
+                  />
+                </ListItem>
+              ))
+            : filteredProducts.map((item) => (
+                <ListItem key={item.id} marginLeft="10px">
+                  <Product
+                    id={item.id}
+                    name={item.name}
+                    category={item.category}
+                    price={item.price}
+                    img={item.img}
+                  />
+                </ListItem>
+              ))}
         </Flex>
       </List>
     </Flex>
