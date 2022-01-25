@@ -2,11 +2,7 @@ import { Flex, List, ListItem, Stack } from "@chakra-ui/react";
 import { useCart } from "../../contexts/CartContext";
 import { CartProduct } from "./CartProduct";
 
-interface CartListProps {
-  confirma: () => void;
-}
-
-export const CartList = ({ confirma }: CartListProps) => {
+export const CartList = () => {
   const { venta } = useCart();
 
   return (

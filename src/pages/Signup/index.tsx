@@ -1,6 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { useAuth } from "../../contexts/UserContext";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Header } from "../../components/Header";

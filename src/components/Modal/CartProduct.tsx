@@ -25,7 +25,7 @@ export const CartProduct = ({ id, name, img, qty }: CartProductProps) => {
     }
   };
 
-  const handleDelete = () => {
+  const Deletar = () => {
     VentaDel(id);
   };
 
@@ -50,7 +50,7 @@ export const CartProduct = ({ id, name, img, qty }: CartProductProps) => {
       >
         <Flex w="100%" justifyContent="space-between">
           <Text fontWeight="bold">{name}</Text>
-          <Box as="button" onClick={() => handleDelete()}>
+          <Box as="button" onClick={() => Deletar()}>
             <FaTrash />
           </Box>
         </Flex>

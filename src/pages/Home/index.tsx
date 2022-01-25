@@ -44,10 +44,6 @@ export const Home = () => {
     onEmptyCartOpen();
   };
 
-  const handleDelete = () => {
-    onEmptyCartOpen();
-  };
-
   return (
     <>
       <Encabezado
@@ -63,8 +59,6 @@ export const Home = () => {
         fullClose={onFullCartClose}
         fullOpen={isFullCartOpen}
         cancela={() => handleSale()}
-        deletar={() => handleDelete()}
-        confirma={() => {}}
       />
     </>
   );

@@ -17,20 +17,9 @@ interface FullCartProps {
   isOpen: boolean;
   onClose: () => void;
   cancela: () => void;
-  confirma: () => void;
 }
-export const FullCart = ({
-  isOpen,
-  onClose,
-  cancela,
-  confirma,
-}: FullCartProps) => {
+export const FullCart = ({ isOpen, onClose, cancela }: FullCartProps) => {
   const { total } = useCart();
-
-  const handleClose = () => {
-    onClose();
-    // cancela();
-  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -46,7 +35,7 @@ export const FullCart = ({
           borderTopRadius="lg"
         >
           <Text>Carrinho de Compras</Text>
-          <Text as="button" onClick={() => handleClose()} fontWeight="bold">
+          <Text as="button" onClick={onClose} fontWeight="bold">
             X
           </Text>
         </ModalHeader>
@@ -58,10 +47,10 @@ export const FullCart = ({
           justifyContent="center"
           alignItems="center"
         >
-          <CartList confirma={confirma} />
+          <CartList />
         </ModalBody>
         <ModalFooter
-          h="250px"
+          h="150px"
           display="flex"
           flexDirection="column"
           justifyContent="space-around"
@@ -79,16 +68,6 @@ export const FullCart = ({
             <Text>R$ {total.toFixed(2)}</Text>
           </Flex>
           <VStack w="100%" spacing="5">
-            <Button
-              onClick={confirma}
-              w="100%"
-              h="50px"
-              bg="main.primary"
-              color="cinza.0"
-            >
-              Confirmar Venda
-            </Button>
-
             <Button
               onClick={cancela}
               w="100%"
