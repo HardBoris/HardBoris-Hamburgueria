@@ -1,5 +1,6 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { FaCartPlus, FaSearch, FaSignOutAlt } from "react-icons/fa";
+import { useCart } from "../../contexts/CartContext";
 
 interface IconesProps {
   salir: () => void;
@@ -9,6 +10,7 @@ interface IconesProps {
 }
 
 export const Icones = ({ salir, abrir, mostrar, oculto }: IconesProps) => {
+  const { long } = useCart();
   return (
     <Flex
       id="icones"
@@ -34,11 +36,34 @@ export const Icones = ({ salir, abrir, mostrar, oculto }: IconesProps) => {
 
       <Box
         as="button"
+        w={["20px", "20px", "25px", "30px"]}
         cursor="pointer"
         fontSize={["20px", "20px", "25px", "30px"]}
         onClick={abrir}
+        position="relative"
       >
-        <FaCartPlus />
+        <Flex
+          h="15px"
+          w="15px"
+          justifyContent="center"
+          alignItems="center"
+          bg="main.primary"
+          color="cinza.0"
+          fontSize="12px"
+          fontWeight="bold"
+          borderRadius="50%"
+          position="absolute"
+          left="50%"
+          top="50%"
+          transform="translate(-50%, -50%)"
+          zIndex="2"
+          display={long > 0 ? "block" : "none"}
+        >
+          <Text>{long}</Text>
+        </Flex>
+        <Flex justifyContent="center" alignItems="center">
+          <FaCartPlus />
+        </Flex>
       </Box>
       <Box
         as="button"

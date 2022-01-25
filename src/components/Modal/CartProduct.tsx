@@ -28,7 +28,13 @@ export const CartProduct = ({ id, name, price, img }: CartProductProps) => {
 
   return (
     <Flex w="100%" h="80px" alignItems="center" marginTop="20px">
-      <Flex h="80px" w="80px" justifyContent="center" bg="cinza.0">
+      <Flex
+        h="80px"
+        w="80px"
+        justifyContent="center"
+        bg="cinza.100"
+        borderRadius="md"
+      >
         <Image src={img} objectFit="contain" />
       </Flex>
       <Flex

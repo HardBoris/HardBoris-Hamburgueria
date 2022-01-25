@@ -26,7 +26,7 @@ export const Product = ({ id, name, category, price, img }: ProductProps) => {
         borderColor: "main.primary",
       }}
     >
-      <Flex h="40%" justifyContent="center" bg="cinza.0">
+      <Flex h="40%" justifyContent="center" bg="cinza.0" borderTopRadius="lg">
         <Image src={img} objectFit="contain" />
       </Flex>
       <Flex
