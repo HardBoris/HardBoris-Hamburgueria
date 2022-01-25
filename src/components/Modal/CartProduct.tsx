@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { useCart } from "../../contexts/CartContext";
@@ -11,20 +11,20 @@ interface CartProductProps {
 }
 
 export const CartProduct = ({ id, name, price, img }: CartProductProps) => {
-  const { SaleDel, multiplicacion } = useCart();
-  const [qty, setQty] = useState(1);
+  const { VentaDel, SaleDel, ValorAdd, ValorDel } = useCart();
+  const [qty, setQty] = useState(0);
 
   const Aumenta = () => {
     setQty(qty + 1);
+    ValorAdd(price);
   };
 
   const Disminuye = () => {
     if (qty > 1) {
       setQty(qty - 1);
+      ValorDel();
     }
   };
-
-  console.log(multiplicacion(price, qty)); //está función es provisionale viene del CartContext
 
   return (
     <Flex w="100%" h="80px" alignItems="center" marginTop="20px">

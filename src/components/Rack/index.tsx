@@ -9,7 +9,6 @@ interface RackProps {
   cancela: () => void;
   fullOpen: boolean;
   fullClose: () => void;
-  factor: number;
 }
 
 export const Rack = ({
@@ -18,17 +17,11 @@ export const Rack = ({
   cancela,
   fullOpen,
   fullClose,
-  factor,
 }: RackProps) => {
   return (
     <>
       <EmptyCart isOpen={isOpen} onClose={onClose} />
-      <FullCart
-        isOpen={fullOpen}
-        onClose={fullClose}
-        cancela={cancela}
-        factor={factor}
-      />
+      <FullCart isOpen={fullOpen} onClose={fullClose} cancela={cancela} />
       <Flex id="rack" w={["320px", "320px", "700px", "1300px"]} margin="auto">
         <ProductsList />
       </Flex>

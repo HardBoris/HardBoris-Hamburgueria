@@ -7,7 +7,7 @@ import { Encabezado } from "./Encabezado";
 
 export const Home = () => {
   const { signOut } = useAuth();
-  const { long, SaleCancel } = useCart();
+  const { long, SaleCancel, VentaCancel, ValorCancel } = useCart();
   const [oculto, setOculto] = useState(true);
   const Ocultar = () => {
     setOculto(true);
@@ -40,6 +40,8 @@ export const Home = () => {
 
   const handleSale = () => {
     SaleCancel();
+    VentaCancel();
+    ValorCancel();
     onFullCartClose();
     onEmptyCartOpen();
   };
@@ -59,7 +61,6 @@ export const Home = () => {
         fullClose={onFullCartClose}
         fullOpen={isFullCartOpen}
         cancela={() => handleSale()}
-        factor={2}
       />
     </>
   );

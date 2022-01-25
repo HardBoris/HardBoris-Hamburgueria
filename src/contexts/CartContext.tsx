@@ -28,7 +28,7 @@ interface Ventas {
 }
 
 interface Valor {
-  prod: number;
+  x: number;
 }
 
 interface CartContextData {
@@ -36,15 +36,19 @@ interface CartContextData {
   venta: Ventas[];
   valor: Valor[];
   long: number;
-  qty: number;
   SaleQty: () => void;
   SaleAdd: (id: number) => void;
   SaleDel: (id: number) => void;
   SaleCancel: () => void;
   SaleSum: number;
-  multiplicacion: (x: number, y: number) => void;
-  Aumenta: () => void;
-  Disminuye: () => void;
+  VentaSum: number;
+  VentaAdd: (id: number, qty: number) => void;
+  VentaDel: (id: number) => void;
+  VentaCancel: () => void;
+  ValorAdd: (x: number) => void;
+  ValorCancel: () => void;
+  ValorDel: () => void;
+  ValorSum: number;
 }
 
 export const CartContext = createContext<CartContextData>(
@@ -57,12 +61,12 @@ const CartProvider = ({ children }: CartProviderProps) => {
   const [sale, setSale] = useState<Sales[]>([]);
   const { produtos } = useProducts();
   const [long, setLong] = useState<number>(0);
-  const [qty, setQty] = useState(1);
+  // const [qty, setQty] = useState(1);
   const [venta, setVenta] = useState<Ventas[]>([]);
   const [valor, setValor] = useState<Valor[]>([]);
 
   const SaleQty = () => {
-    setLong(venta.length);
+    setLong(sale.length);
   };
 
   const SaleAdd = (id: number) => {
@@ -72,42 +76,52 @@ const CartProvider = ({ children }: CartProviderProps) => {
     }
   };
 
-  useEffect(() => {
-    setQty(qty);
-  }, [qty]);
+  const VentaAdd = (id: number, qty: number) => {
+    const ventaProduct = produtos.find((item) => item.id === id);
+    if (ventaProduct) {
+      setVenta([...venta, { ...ventaProduct, qty }]);
+    }
+  };
+
+  const ValorAdd = (x: number) => {
+    setValor([...valor, { x }]);
+  };
+
+  // useEffect(() => {
+  //   setQty(qty);
+  // }, [qty]);
 
   const SaleDel = (id: number) => {
     setSale(sale.filter((item) => item.id !== id));
     SaleQty();
   };
 
+  const VentaDel = (id: number) => {
+    setVenta(venta.filter((item) => item.id !== id));
+    SaleQty();
+  };
+
+  const ValorDel = () => {
+    setValor(valor.splice(valor.length));
+  };
+
   const SaleSum = sale.reduce((a, b) => a + b.price, 0);
 
-  const SaleCancel = () => setSale([]);
+  const VentaSum = venta.reduce((a, b) => a + b.price, 0);
+  const ValorSum = valor.reduce((a, b) => a + b.x, 0);
 
-  const multiplicacion = (x: number, y: number) => {
-    return x * y;
-    // setValor([...valor, { prod }]);
-  };
+  const SaleCancel = () => setSale([]);
+  const VentaCancel = () => setVenta([]);
+  const ValorCancel = () => setValor([]);
 
   useEffect(() => {
     setLong(sale.length);
   }, [sale]);
 
-  const Aumenta = () => {
-    setQty(qty + 1);
-  };
-
-  const Disminuye = () => {
-    if (qty > 1) {
-      setQty(qty - 1);
-    }
-  };
-
   console.log(sale);
   console.log(long);
-  console.log(qty);
   console.log(valor);
+  console.log(venta);
 
   return (
     <CartContext.Provider
@@ -116,15 +130,19 @@ const CartProvider = ({ children }: CartProviderProps) => {
         venta,
         long,
         valor,
-        qty,
         SaleQty,
         SaleAdd,
         SaleDel,
         SaleCancel,
         SaleSum,
-        multiplicacion,
-        Aumenta,
-        Disminuye,
+        VentaAdd,
+        VentaDel,
+        VentaCancel,
+        VentaSum,
+        ValorAdd,
+        ValorCancel,
+        ValorDel,
+        ValorSum,
       }}
     >
       {children}

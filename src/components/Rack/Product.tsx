@@ -1,4 +1,5 @@
 import { Button, Flex, Image, Text } from "@chakra-ui/react";
+import { useState } from "react";
 import { useCart } from "../../contexts/CartContext";
 
 interface ProductProps {
@@ -11,6 +12,7 @@ interface ProductProps {
 
 export const Product = ({ id, name, category, price, img }: ProductProps) => {
   const { SaleAdd } = useCart();
+
   return (
     <Flex
       w="300px"

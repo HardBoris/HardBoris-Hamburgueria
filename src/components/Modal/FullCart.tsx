@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Flex,
   Modal,
@@ -17,15 +16,10 @@ interface FullCartProps {
   isOpen: boolean;
   onClose: () => void;
   cancela: () => void;
-  factor: number;
 }
-export const FullCart = ({
-  isOpen,
-  onClose,
-  cancela,
-  factor,
-}: FullCartProps) => {
-  const { SaleSum, qty } = useCart();
+export const FullCart = ({ isOpen, onClose, cancela }: FullCartProps) => {
+  const { ValorSum } = useCart();
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -70,7 +64,7 @@ export const FullCart = ({
             paddingBlock="16px"
           >
             <Text fontWeight="bold">Total</Text>
-            <Text>R$ {SaleSum.toFixed(2)}</Text>
+            <Text>R$ {ValorSum.toFixed(2)}</Text>
           </Flex>
 
           <Button
