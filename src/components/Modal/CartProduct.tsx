@@ -1,5 +1,4 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
-import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { useCart } from "../../contexts/CartContext";
 
@@ -8,22 +7,26 @@ interface CartProductProps {
   name: string;
   price: number;
   img: string;
+  qty: number;
 }
 
-export const CartProduct = ({ id, name, price, img }: CartProductProps) => {
-  const { VentaDel, SaleDel, ValorAdd, ValorDel } = useCart();
-  const [qty, setQty] = useState(0);
+export const CartProduct = ({ id, name, img, qty }: CartProductProps) => {
+  const { VentaDel, VentaSum, QtyAdd, QtyMinus } = useCart();
 
   const Aumenta = () => {
-    setQty(qty + 1);
-    ValorAdd(price);
+    QtyAdd(id);
+    VentaSum();
   };
 
   const Disminuye = () => {
     if (qty > 1) {
-      setQty(qty - 1);
-      ValorDel();
+      QtyMinus(id);
+      VentaSum();
     }
+  };
+
+  const handleDelete = () => {
+    VentaDel(id);
   };
 
   return (
@@ -47,7 +50,7 @@ export const CartProduct = ({ id, name, price, img }: CartProductProps) => {
       >
         <Flex w="100%" justifyContent="space-between">
           <Text fontWeight="bold">{name}</Text>
-          <Box as="button" onClick={() => SaleDel(id)}>
+          <Box as="button" onClick={() => handleDelete()}>
             <FaTrash />
           </Box>
         </Flex>

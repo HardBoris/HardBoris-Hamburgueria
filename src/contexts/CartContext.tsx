@@ -22,33 +22,24 @@ interface Sales {
 interface Ventas {
   id: number;
   name: string;
+  category: string;
   price: number;
   qty: number;
   img: string;
 }
 
-interface Valor {
-  x: number;
-}
-
 interface CartContextData {
   sale: Sales[];
   venta: Ventas[];
-  valor: Valor[];
   long: number;
-  SaleQty: () => void;
-  SaleAdd: (id: number) => void;
-  SaleDel: (id: number) => void;
-  SaleCancel: () => void;
-  SaleSum: number;
-  VentaSum: number;
+  total: number;
+  VentaLong: () => void;
+  VentaSum: () => void;
   VentaAdd: (id: number, qty: number) => void;
   VentaDel: (id: number) => void;
-  VentaCancel: () => void;
-  ValorAdd: (x: number) => void;
-  ValorCancel: () => void;
-  ValorDel: () => void;
-  ValorSum: number;
+  QtyAdd: (id: number) => void;
+  QtyMinus: (id: number) => void;
+  Cancelar: () => void;
 }
 
 export const CartContext = createContext<CartContextData>(
@@ -58,69 +49,62 @@ export const CartContext = createContext<CartContextData>(
 const useCart = () => useContext(CartContext);
 
 const CartProvider = ({ children }: CartProviderProps) => {
-  const [sale, setSale] = useState<Sales[]>([]);
   const { produtos } = useProducts();
-  const [long, setLong] = useState<number>(0);
-  // const [qty, setQty] = useState(1);
+  const [sale, setSale] = useState<Sales[]>([]);
   const [venta, setVenta] = useState<Ventas[]>([]);
-  const [valor, setValor] = useState<Valor[]>([]);
+  const [long, setLong] = useState<number>(0);
+  const [total, setTotal] = useState(0);
 
-  const SaleQty = () => {
-    setLong(sale.length);
-  };
-
-  const SaleAdd = (id: number) => {
-    const saleProduct = produtos.find((item) => item.id === id);
-    if (saleProduct) {
-      setSale([...sale, saleProduct]);
-    }
+  const VentaLong = () => {
+    setLong(venta.length);
   };
 
   const VentaAdd = (id: number, qty: number) => {
-    const ventaProduct = produtos.find((item) => item.id === id);
-    if (ventaProduct) {
-      setVenta([...venta, { ...ventaProduct, qty }]);
+    const VentaItem = produtos.find((item) => item.id === id);
+    if (VentaItem) {
+      if (!sale.includes(VentaItem)) {
+        setSale([...sale, VentaItem]);
+        setVenta([...venta, { ...VentaItem, qty }]);
+      }
     }
   };
 
-  const ValorAdd = (x: number) => {
-    setValor([...valor, { x }]);
+  const QtyAdd = (id: number) => {
+    const ventaProduct = venta.find((item) => item.id === id);
+    if (ventaProduct) {
+      ventaProduct.qty += 1;
+    }
   };
 
-  // useEffect(() => {
-  //   setQty(qty);
-  // }, [qty]);
-
-  const SaleDel = (id: number) => {
-    setSale(sale.filter((item) => item.id !== id));
-    SaleQty();
+  const QtyMinus = (id: number) => {
+    const ventaProduct = venta.find((item) => item.id === id);
+    if (ventaProduct) {
+      ventaProduct.qty -= 1;
+    }
   };
 
   const VentaDel = (id: number) => {
+    setSale(sale.filter((item) => item.id !== id));
     setVenta(venta.filter((item) => item.id !== id));
-    SaleQty();
   };
 
-  const ValorDel = () => {
-    setValor(valor.splice(valor.length));
+  const VentaSum = () =>
+    setTotal(venta.reduce((a, b) => a + b.price * b.qty, 0));
+
+  const Cancelar = () => {
+    setSale([]);
+    setVenta([]);
+    setTotal(0);
   };
-
-  const SaleSum = sale.reduce((a, b) => a + b.price, 0);
-
-  const VentaSum = venta.reduce((a, b) => a + b.price, 0);
-  const ValorSum = valor.reduce((a, b) => a + b.x, 0);
-
-  const SaleCancel = () => setSale([]);
-  const VentaCancel = () => setVenta([]);
-  const ValorCancel = () => setValor([]);
 
   useEffect(() => {
-    setLong(sale.length);
-  }, [sale]);
+    VentaLong();
+    VentaSum();
+  });
 
   console.log(sale);
   console.log(long);
-  console.log(valor);
+  console.log(total);
   console.log(venta);
 
   return (
@@ -129,20 +113,14 @@ const CartProvider = ({ children }: CartProviderProps) => {
         sale,
         venta,
         long,
-        valor,
-        SaleQty,
-        SaleAdd,
-        SaleDel,
-        SaleCancel,
-        SaleSum,
+        total,
+        VentaLong,
         VentaAdd,
         VentaDel,
-        VentaCancel,
         VentaSum,
-        ValorAdd,
-        ValorCancel,
-        ValorDel,
-        ValorSum,
+        QtyAdd,
+        QtyMinus,
+        Cancelar,
       }}
     >
       {children}

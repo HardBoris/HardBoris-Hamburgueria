@@ -1,4 +1,4 @@
-import { Flex, List, ListItem, Stack } from "@chakra-ui/react";
+import { Flex, List, ListItem } from "@chakra-ui/react";
 import { useProducts } from "../../contexts/ProductsContext";
 import { Product } from "./Product";
 
