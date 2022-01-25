@@ -5,7 +5,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import { api } from "../services/api";
 import { useProducts } from "./ProductsContext";
 
 interface CartProviderProps {
