@@ -3,6 +3,7 @@ import { DeepMap, FieldError, FieldValues } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { Formulario } from "../../components/Formulario";
 import { Input } from "../../components/Formulario/Input";
+import { useAuth } from "../../contexts/UserContext";
 
 interface LoginFormProps {
   Enviar: () => void;
@@ -12,6 +13,7 @@ interface LoginFormProps {
 
 export const LoginForm = ({ Enviar, errors, register }: LoginFormProps) => {
   const history = useHistory();
+  const { mensaje } = useAuth();
   return (
     <Formulario onSubmit={Enviar}>
       <Heading size="md">Login</Heading>
@@ -42,8 +44,14 @@ export const LoginForm = ({ Enviar, errors, register }: LoginFormProps) => {
         >
           Entrar
         </Button>
-        <Text fontSize="sm" textAlign="center" color="cinza.300">
-          Crie sua conta para saborear muitas delicias e matar sua fome!
+        <Text
+          fontSize="sm"
+          textAlign="center"
+          color={mensaje ? "status.negative" : "cinza.300"}
+        >
+          {mensaje
+            ? `${mensaje}`
+            : "Crie sua conta para saborear muitas delicias e matar sua fome!"}
         </Text>
         <Button
           type="button"

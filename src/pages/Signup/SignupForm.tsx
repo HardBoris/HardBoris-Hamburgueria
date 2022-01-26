@@ -1,6 +1,5 @@
-import { Button, Flex, Heading, Link, Text, VStack } from "@chakra-ui/react";
+import { Button, Flex, Heading, Link, VStack } from "@chakra-ui/react";
 import { DeepMap, FieldError, FieldValues } from "react-hook-form";
-import { Redirect, useHistory } from "react-router-dom";
 import { Formulario } from "../../components/Formulario";
 import { Input } from "../../components/Formulario/Input";
 
@@ -8,10 +7,15 @@ interface LoginFormProps {
   Registrar: () => void;
   errors: DeepMap<FieldValues, FieldError>;
   register: any;
+  wrong: string;
 }
 
-export const SignupForm = ({ Registrar, errors, register }: LoginFormProps) => {
-  const history = useHistory();
+export const SignupForm = ({
+  Registrar,
+  errors,
+  register,
+  wrong,
+}: LoginFormProps) => {
   return (
     <Formulario onSubmit={Registrar}>
       <Flex justifyContent="space-between">
@@ -49,13 +53,13 @@ export const SignupForm = ({ Registrar, errors, register }: LoginFormProps) => {
 
         <Button
           type="submit"
-          bg="cinza.0"
+          bg={wrong ? "status.negative" : "cinza.0"}
           w="100%"
           h="60px"
-          color="cinza.300"
+          color={wrong ? "cinza.0" : "cinza.300"}
           _hover={{ bg: "cinza.300", color: "cinza.0" }}
         >
-          Cadastrar
+          {wrong ? "Email já cadastrado. F5 para tentar de novo!" : "Cadastrar"}
         </Button>
       </VStack>
     </Formulario>

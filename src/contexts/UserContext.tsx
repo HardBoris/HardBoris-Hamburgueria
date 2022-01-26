@@ -33,6 +33,7 @@ interface UserContextData {
   accessToken: string;
   signIn: (credentials: SignInCredentials) => Promise<void>;
   signOut: () => void;
+  mensaje: string;
 }
 
 const UserContext = createContext<UserContextData>({} as UserContextData);
@@ -48,6 +49,7 @@ const useAuth = () => {
 };
 
 const UserProvider = ({ children }: UserProviderProps) => {
+  const [mensaje, setMensaje] = useState("");
   const [data, setData] = useState<AuthState>(() => {
     const accessToken = localStorage.getItem("@Doit:accessToken");
     const user = localStorage.getItem("@Doit:user");
@@ -71,7 +73,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
         setData({ accessToken, user });
       })
       .catch((error) => {
-        console.log(error.response.data);
+        setMensaje(error.response.data);
       });
   }, []);
 
@@ -89,6 +91,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
         user: data.user,
         signIn,
         signOut,
+        mensaje,
       }}
     >
       {children}

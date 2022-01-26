@@ -6,6 +6,8 @@ import { Header } from "../../components/Header";
 import { Eslogan } from "../../components/Header/Eslogan";
 import { SignupForm } from "./SignupForm";
 import { api } from "../../services/api";
+import { useHistory } from "react-router-dom";
+import { useState } from "react";
 
 const schema = yup.object().shape({
   name: yup.string().required("Nome obrigatório"),
@@ -24,6 +26,8 @@ interface RegistroData {
 }
 
 export const Signup = () => {
+  const history = useHistory();
+  const [wrong, setWrong] = useState("");
   const {
     register,
     handleSubmit,
@@ -33,9 +37,12 @@ export const Signup = () => {
   });
 
   const Registrar = ({ name, email, password }: RegistroData) => {
-    api.post("/signup", { name, email, password }).catch((err) => {
-      console.log(err);
-    });
+    api
+      .post("/signup", { name, email, password })
+      .then(() => history.push("/"))
+      .catch((err) => {
+        setWrong(err);
+      });
   };
 
   return (
@@ -63,6 +70,7 @@ export const Signup = () => {
           Registrar={handleSubmit(Registrar)}
           errors={errors}
           register={register}
+          wrong={wrong}
         />
       </Box>
     </Flex>
