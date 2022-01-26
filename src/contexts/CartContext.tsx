@@ -102,11 +102,6 @@ const CartProvider = ({ children }: CartProviderProps) => {
     VentaSum();
   });
 
-  console.log(sale);
-  console.log(long);
-  console.log(total);
-  console.log(venta);
-
   return (
     <CartContext.Provider
       value={{
